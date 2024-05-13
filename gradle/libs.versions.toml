@@ -1,0 +1,24 @@
+[versions]
+# kotlin
+kotlin = "1.9.24"
+
+license = "0.16.1"
+
+# Core
+annotations = "24.1.0"
+guava = "33.2.0-jre"
+
+[libraries]
+# Core
+annotations = { module = "org.jetbrains:annotations", version.ref = "annotations" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
+# build
+build-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+build-license = { module = "gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin", version.ref = "license" }
+
+[bundles]
+build = [
+    "build-kotlin",
+    "build-license",
+]
