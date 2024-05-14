@@ -12,7 +12,8 @@ pluginManagement {
     }
 }
 
-rootProject.name = "nova-project"
+val base = "nova"
+rootProject.name = "$base-project"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -21,5 +22,8 @@ plugins {
 }
 
 includeProject("core") {
-    name = "nova"
+    name = base
+}
+includeProject("kotlin") {
+    name = "$base-kotlin"
 }

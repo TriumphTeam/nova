@@ -21,22 +21,4 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.triumphteam.nova.builtin;
-
-import dev.triumphteam.nova.AbstractMutableState;
-import dev.triumphteam.nova.MutableState;
-import dev.triumphteam.nova.policy.StateMutationPolicy;
-import org.jetbrains.annotations.NotNull;
-
-/**
- * The simplest implementation of {@link MutableState}.
- *
- * @param <T> The type of the value.
- * @see AbstractMutableState For the implementation.
- */
-public final class SimpleMutableState<T> extends AbstractMutableState<T> {
-
-    public SimpleMutableState(final T value, final @NotNull StateMutationPolicy mutationPolicy) {
-        super(value, mutationPolicy);
-    }
-}
+package dev.triumphteam.nova

@@ -21,22 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.triumphteam.nova.builtin;
+package dev.triumphteam.nova;
 
-import dev.triumphteam.nova.AbstractMutableState;
-import dev.triumphteam.nova.MutableState;
-import dev.triumphteam.nova.policy.StateMutationPolicy;
+import dev.triumphteam.nova.builtin.SimpleMutableState;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The simplest implementation of {@link MutableState}.
+ * A representation of a "state".
+ * A state doesn't necessarily need to hold any value.
+ * Its sole purpose is to trigger updates.
  *
- * @param <T> The type of the value.
- * @see AbstractMutableState For the implementation.
+ * @see MutableState
+ * @see AbstractMutableState
+ * @see SimpleMutableState
  */
-public final class SimpleMutableState<T> extends AbstractMutableState<T> {
+public interface State {
 
-    public SimpleMutableState(final T value, final @NotNull StateMutationPolicy mutationPolicy) {
-        super(value, mutationPolicy);
-    }
+    /**
+     * Trigger a component to re-render.
+     */
+    void trigger();
+
+    /**
+     * Adds a new listener to the state.
+     * Avoid calling this method manually if you don't know what you are doing,
+     * this is mostly done internally by the {@link Stateful}.
+     * <p>
+     * The listener is tied to the lifecycle of the {@link Stateful},
+     * so avoid holding the view if it is no longer needed.
+     *
+     * @param stateful     The {@link Stateful} object which will be handling this state.
+     * @param listener The listener to be called when a state is triggered.
+     */
+    void addListener(final @NotNull Stateful stateful, final @NotNull Runnable listener);
 }
