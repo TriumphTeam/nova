@@ -35,7 +35,7 @@ public abstract class AbstractState implements State {
     }
 
     @Override
-    public void addListener(final @NotNull Stateful stateful, final @NotNull Runnable listener) {
+    public void addListener(final @NotNull Object stateful, final @NotNull Runnable listener) {
         listenerContainer.addListener(stateful, listener);
     }
 }

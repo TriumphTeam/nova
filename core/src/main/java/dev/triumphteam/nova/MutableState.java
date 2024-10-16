@@ -57,7 +57,7 @@ public interface MutableState<T> extends State {
     void setValue(final T value);
 
     /**
-     * Which mutation policy is used by this state.
+     * Which mutation policy to be used by this state.
      * The mutation policy is not used outside the state itself,
      * so it can be ignored if not actively used but custom implementations of {@link MutableState}.
      *

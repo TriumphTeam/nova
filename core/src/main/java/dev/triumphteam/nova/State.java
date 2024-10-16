@@ -45,13 +45,13 @@ public interface State {
     /**
      * Adds a new listener to the state.
      * Avoid calling this method manually if you don't know what you are doing,
-     * this is mostly done internally by the {@link Stateful}.
+     * this is mostly done internally by the {@link Object}.
      * <p>
-     * The listener is tied to the lifecycle of the {@link Stateful},
-     * so avoid holding the view if it is no longer needed.
+     * The listener is tied to the lifecycle of the {@link Object},
+     * so avoid holding the view if it is no longer necessary.
      *
-     * @param stateful     The {@link Stateful} object which will be handling this state.
+     * @param stateful     The {@link Object} object which will be handling this state.
      * @param listener The listener to be called when a state is triggered.
      */
-    void addListener(final @NotNull Stateful stateful, final @NotNull Runnable listener);
+    void addListener(final @NotNull Object stateful, final @NotNull Runnable listener);
 }
