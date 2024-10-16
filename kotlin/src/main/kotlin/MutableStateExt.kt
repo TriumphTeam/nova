@@ -21,23 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.triumphteam.nova.builtin
+package dev.triumphteam.nova
 
-import dev.triumphteam.nova.AbstractMutableState
-import dev.triumphteam.nova.policy.StateMutationPolicy
-import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-public open class DelegateState<T>(
-    initialValue: T,
-    mutationPolicy: StateMutationPolicy = StateMutationPolicy.StructuralEquality.INSTANCE
-) : AbstractMutableState<T>(initialValue, mutationPolicy), ReadWriteProperty<Any?, T> {
+public operator fun <T> MutableState<T>.getValue(thisRef: Any?, property: KProperty<*>): T {
+    return value
+}
 
-    override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-        return value
-    }
-
-    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        setValue(value)
-    }
+public operator fun <T> MutableState<T>.setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+    setValue(value)
 }
