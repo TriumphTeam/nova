@@ -1,18 +1,18 @@
 /**
  * MIT License
- *
+ * <p>
  * Copyright (c) 2024 TriumphTeam
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,6 +24,7 @@
 package dev.triumphteam.nova.policy;
 
 import dev.triumphteam.nova.MutableState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -47,9 +48,14 @@ public interface StateMutationPolicy {
      */
     final class ReferenceEquality implements StateMutationPolicy {
 
-        public static final StateMutationPolicy INSTANCE = new ReferenceEquality();
+        @NotNull
+        private static final StateMutationPolicy INSTANCE = new ReferenceEquality();
 
         private ReferenceEquality() {}
+
+        public static @NotNull StateMutationPolicy get() {
+            return INSTANCE;
+        }
 
         @Override
         public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {
@@ -63,9 +69,14 @@ public interface StateMutationPolicy {
      */
     final class StructuralEquality implements StateMutationPolicy {
 
-        public static final StateMutationPolicy INSTANCE = new StructuralEquality();
+        @NotNull
+        private static final StateMutationPolicy INSTANCE = new StructuralEquality();
 
         private StructuralEquality() {}
+
+        public static @NotNull StateMutationPolicy get() {
+            return INSTANCE;
+        }
 
         @Override
         public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {
@@ -80,9 +91,14 @@ public interface StateMutationPolicy {
      */
     final class NeverEqual implements StateMutationPolicy {
 
-        public static final StateMutationPolicy INSTANCE = new NeverEqual();
+        @NotNull
+        private static final StateMutationPolicy INSTANCE = new NeverEqual();
 
         private NeverEqual() {}
+
+        public static @NotNull StateMutationPolicy get() {
+            return INSTANCE;
+        }
 
         @Override
         public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {

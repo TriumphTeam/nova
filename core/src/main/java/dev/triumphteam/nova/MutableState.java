@@ -50,7 +50,7 @@ public interface MutableState<T> extends State {
      * @return A new {@link MutableState}.
      */
     static <T> @NotNull MutableState<@NotNull T> of(final @NotNull T value) {
-        return of(value, StateMutationPolicy.StructuralEquality.INSTANCE);
+        return of(value, StateMutationPolicy.StructuralEquality.get());
     }
 
     /**
@@ -74,7 +74,7 @@ public interface MutableState<T> extends State {
      * @return A new {@link MutableState}.
      */
     static <T> @NotNull MutableState<@Nullable T> ofNullable(final @Nullable T value) {
-        return ofNullable(value, StateMutationPolicy.StructuralEquality.INSTANCE);
+        return ofNullable(value, StateMutationPolicy.StructuralEquality.get());
     }
 
     /**
