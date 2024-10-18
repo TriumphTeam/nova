@@ -23,10 +23,13 @@
  */
 package dev.triumphteam.nova;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dev.triumphteam.nova.builtin.SimpleMutableState;
 import dev.triumphteam.nova.policy.StateMutationPolicy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Function;
 
 /**
  * A representation of a {@link State} that is mutable.
@@ -66,6 +69,16 @@ public interface MutableState<T> extends State {
     }
 
     /**
+     * Creates a new mutable nullable state defaulted to {@code null}.
+     *
+     * @param <T> The type of the value.
+     * @return A new {@link MutableState}.
+     */
+    static <T> @NotNull MutableState<@Nullable T> ofNullable() {
+        return ofNullable(null);
+    }
+
+    /**
      * Creates a new mutable nullable state with the given value.
      * Using {@link StateMutationPolicy.StructuralEquality}.
      *
@@ -95,7 +108,7 @@ public interface MutableState<T> extends State {
      *
      * @return The value of the state.
      */
-    T getValue();
+    T get();
 
     /**
      * Set a new value to the state.
@@ -103,7 +116,17 @@ public interface MutableState<T> extends State {
      *
      * @param value The new value of the state.
      */
-    void setValue(final T value);
+    void set(final T value);
+
+    /**
+     * Updates the value of the state.
+     * The function provides the previous value and will {@link MutableState#set(Object)} the returning value to the state.
+     *
+     * @param update The update function to update the value of this state.
+     * @return The new value.
+     */
+    @CanIgnoreReturnValue
+    T update(final @NotNull Function<T, T> update);
 
     /**
      * Which mutation policy to be used by this state.

@@ -61,6 +61,11 @@ public interface StateMutationPolicy {
         public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {
             return a == b;
         }
+
+        @Override
+        public String toString() {
+            return "ReferenceEquality";
+        }
     }
 
     /**
@@ -83,6 +88,11 @@ public interface StateMutationPolicy {
             if (a == null || b == null) return false;
             return a.equals(b);
         }
+
+        @Override
+        public String toString() {
+            return "StructuralEquality";
+        }
     }
 
     /**
@@ -103,6 +113,11 @@ public interface StateMutationPolicy {
         @Override
         public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {
             return false;
+        }
+
+        @Override
+        public String toString() {
+            return "NeverEqual";
         }
     }
 }
