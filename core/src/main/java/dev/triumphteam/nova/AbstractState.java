@@ -31,7 +31,6 @@ public abstract class AbstractState implements State {
 
     @Override
     public void trigger() {
-        System.out.println("updated");
         listenerContainer.triggerAll();
     }
 
