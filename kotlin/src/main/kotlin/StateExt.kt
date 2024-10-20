@@ -1,5 +1,6 @@
 package dev.triumphteam.nova
 
+import dev.triumphteam.nova.builtin.SimpleMutableState
 import dev.triumphteam.nova.policy.StateMutationPolicy
 import java.util.LinkedList
 import kotlin.reflect.KProperty
@@ -16,16 +17,13 @@ public operator fun <T> MutableState<T>.setValue(thisRef: Any?, property: KPrope
 public operator fun <T> ListState<T>.getValue(thisRef: Any?, property: KProperty<*>): MutableList<T> = this
 
 /** Creates a [MutableState] with a default value. */
-public fun <T : Any> mutableStateOf(
+public fun <T> mutableStateOf(
     value: T,
     mutationPolicy: StateMutationPolicy = StateMutationPolicy.StructuralEquality.get()
-): MutableState<T> = MutableState.of(value, mutationPolicy)
+): MutableState<T> = SimpleMutableState(value, mutationPolicy)
 
-/** Creates a nullable mutable state, defaulting to null if no value is given. */
-public fun <T : Any?> nullableStateOf(
-    value: T? = null,
-    mutationPolicy: StateMutationPolicy = StateMutationPolicy.StructuralEquality.get()
-): MutableState<T?> = MutableState.ofNullable(value, mutationPolicy)
+/** Creates an empty state. */
+public fun emptyState(): State = State.empty()
 
 /**
  * Creates a new list state from the given [backing] [MutableList].
