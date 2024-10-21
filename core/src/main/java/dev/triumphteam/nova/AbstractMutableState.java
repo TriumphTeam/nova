@@ -54,8 +54,8 @@ public abstract class AbstractMutableState<T> extends AbstractState implements M
 
     @Override
     public void set(final T value) {
-        // Will not mutate value if they are equivalent
-        if (mutationPolicy.shouldMutate(this.value, value)) return;
+        // Will only mutate the value if the policy allows it
+        if (!mutationPolicy.shouldMutate(this.value, value)) return;
 
         this.value = value;
         trigger();

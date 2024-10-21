@@ -35,11 +35,11 @@ public interface StateMutationPolicy<T> {
     /**
      * Checks if the value should be mutated by comparing the current and the new value.
      *
-     * @param a The first value.
-     * @param b The second value.
+     * @param currentValue The first value.
+     * @param newValue The second value.
      * @return Whether or not they are equivalent.
      */
-    boolean shouldMutate(final @Nullable T a, final @Nullable T b);
+    boolean shouldMutate(final @Nullable T currentValue, final @Nullable T newValue);
 
     /**
      * A {@link StateMutationPolicy} that checks for reference equality.
@@ -47,8 +47,8 @@ public interface StateMutationPolicy<T> {
     final class ReferenceEquality<T> implements StateMutationPolicy<T> {
 
         @Override
-        public boolean shouldMutate(final @Nullable T a, final @Nullable T b) {
-            return a == b;
+        public boolean shouldMutate(final @Nullable T currentValue, final @Nullable T newValue) {
+            return currentValue != newValue;
         }
 
         @Override
@@ -63,9 +63,9 @@ public interface StateMutationPolicy<T> {
     final class StructuralEquality<T> implements StateMutationPolicy<T> {
 
         @Override
-        public boolean shouldMutate(final @Nullable T a, final @Nullable T b) {
-            if (a == null || b == null) return false;
-            return a.equals(b);
+        public boolean shouldMutate(final @Nullable T currentValue, final @Nullable T newValue) {
+            if (currentValue == null || newValue == null) return false;
+            return !currentValue.equals(newValue);
         }
 
         @Override
@@ -80,8 +80,8 @@ public interface StateMutationPolicy<T> {
     final class NeverEqual<T> implements StateMutationPolicy<T> {
 
         @Override
-        public boolean shouldMutate(final @Nullable T a, final @Nullable T b) {
-            return false;
+        public boolean shouldMutate(final @Nullable T currentValue, final @Nullable T newValue) {
+            return true;
         }
 
         @Override
