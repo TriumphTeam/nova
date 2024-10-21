@@ -24,41 +24,30 @@
 package dev.triumphteam.nova.policy;
 
 import dev.triumphteam.nova.MutableState;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * States how a {@link MutableState} handles equality.
  * By default, {@link StructuralEquality} is used.
  */
-public interface StateMutationPolicy {
+public interface StateMutationPolicy<T> {
 
     /**
-     * Checks if the two values are equivalent.
+     * Checks if the value should be mutated by comparing the current and the new value.
      *
      * @param a The first value.
      * @param b The second value.
      * @return Whether or not they are equivalent.
      */
-    boolean equivalent(final @Nullable Object a, final @Nullable Object b);
+    boolean shouldMutate(final @Nullable T a, final @Nullable T b);
 
     /**
      * A {@link StateMutationPolicy} that checks for reference equality.
-     * This class is a singleton and {@link ReferenceEquality#INSTANCE} should always be the used instance.
      */
-    final class ReferenceEquality implements StateMutationPolicy {
-
-        @NotNull
-        private static final StateMutationPolicy INSTANCE = new ReferenceEquality();
-
-        private ReferenceEquality() {}
-
-        public static @NotNull StateMutationPolicy get() {
-            return INSTANCE;
-        }
+    final class ReferenceEquality<T> implements StateMutationPolicy<T> {
 
         @Override
-        public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {
+        public boolean shouldMutate(final @Nullable T a, final @Nullable T b) {
             return a == b;
         }
 
@@ -70,21 +59,11 @@ public interface StateMutationPolicy {
 
     /**
      * A {@link StateMutationPolicy} that checks for structural equality.
-     * This class is a singleton and {@link StructuralEquality#INSTANCE} should always be the used instance.
      */
-    final class StructuralEquality implements StateMutationPolicy {
-
-        @NotNull
-        private static final StateMutationPolicy INSTANCE = new StructuralEquality();
-
-        private StructuralEquality() {}
-
-        public static @NotNull StateMutationPolicy get() {
-            return INSTANCE;
-        }
+    final class StructuralEquality<T> implements StateMutationPolicy<T> {
 
         @Override
-        public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {
+        public boolean shouldMutate(final @Nullable T a, final @Nullable T b) {
             if (a == null || b == null) return false;
             return a.equals(b);
         }
@@ -97,21 +76,11 @@ public interface StateMutationPolicy {
 
     /**
      * A {@link StateMutationPolicy} that makes values never be equivalent.
-     * This class is a singleton and {@link NeverEqual#INSTANCE} should always be the used instance.
      */
-    final class NeverEqual implements StateMutationPolicy {
-
-        @NotNull
-        private static final StateMutationPolicy INSTANCE = new NeverEqual();
-
-        private NeverEqual() {}
-
-        public static @NotNull StateMutationPolicy get() {
-            return INSTANCE;
-        }
+    final class NeverEqual<T> implements StateMutationPolicy<T> {
 
         @Override
-        public boolean equivalent(final @Nullable Object a, final @Nullable Object b) {
+        public boolean shouldMutate(final @Nullable T a, final @Nullable T b) {
             return false;
         }
 

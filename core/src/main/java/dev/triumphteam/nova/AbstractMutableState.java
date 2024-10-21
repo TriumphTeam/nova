@@ -39,10 +39,10 @@ import java.util.function.Function;
  */
 public abstract class AbstractMutableState<T> extends AbstractState implements MutableState<T> {
 
-    private final StateMutationPolicy mutationPolicy;
+    private final StateMutationPolicy<T> mutationPolicy;
     private T value;
 
-    public AbstractMutableState(final T value, final @NotNull StateMutationPolicy mutationPolicy) {
+    public AbstractMutableState(final T value, final @NotNull StateMutationPolicy<T> mutationPolicy) {
         this.value = value;
         this.mutationPolicy = mutationPolicy;
     }
@@ -55,7 +55,7 @@ public abstract class AbstractMutableState<T> extends AbstractState implements M
     @Override
     public void set(final T value) {
         // Will not mutate value if they are equivalent
-        if (mutationPolicy.equivalent(this.value, value)) return;
+        if (mutationPolicy.shouldMutate(this.value, value)) return;
 
         this.value = value;
         trigger();
@@ -69,7 +69,7 @@ public abstract class AbstractMutableState<T> extends AbstractState implements M
     }
 
     @Override
-    public @NotNull StateMutationPolicy stateMutationPolicy() {
+    public @NotNull StateMutationPolicy<T> stateMutationPolicy() {
         return mutationPolicy;
     }
 

@@ -53,13 +53,13 @@ public abstract class AbstractStateHolder implements StateHolder {
 
     @Override
     public @NotNull <T> MutableState<@NotNull T> remember(@NotNull final T value) {
-        return remember(value, StateMutationPolicy.StructuralEquality.get());
+        return remember(value, new StateMutationPolicy.StructuralEquality<>());
     }
 
     @Override
     public @NotNull <T> MutableState<@NotNull T> remember(
         final @NotNull T value,
-        final @NotNull StateMutationPolicy mutationPolicy
+        final @NotNull StateMutationPolicy<T> mutationPolicy
     ) {
         final var state = new SimpleMutableState<>(value, mutationPolicy);
         states.add(state);
@@ -68,13 +68,13 @@ public abstract class AbstractStateHolder implements StateHolder {
 
     @Override
     public @NotNull <T> MutableState<@Nullable T> rememberNullable(final @Nullable T value) {
-        return rememberNullable(value, StateMutationPolicy.StructuralEquality.get());
+        return rememberNullable(value, new StateMutationPolicy.StructuralEquality<>());
     }
 
     @Override
     public @NotNull <T> MutableState<@Nullable T> rememberNullable(
         final @Nullable T value,
-        final @NotNull StateMutationPolicy mutationPolicy
+        final @NotNull StateMutationPolicy<T> mutationPolicy
     ) {
         final var state = new SimpleMutableState<>(value, mutationPolicy);
         states.add(state);

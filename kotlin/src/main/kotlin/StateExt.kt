@@ -19,7 +19,7 @@ public operator fun <T> ListState<T>.getValue(thisRef: Any?, property: KProperty
 /** Creates a [MutableState] with a default value. */
 public fun <T> mutableStateOf(
     value: T,
-    mutationPolicy: StateMutationPolicy = StateMutationPolicy.StructuralEquality.get()
+    mutationPolicy: StateMutationPolicy<T> = StateMutationPolicy.StructuralEquality()
 ): MutableState<T> = SimpleMutableState(value, mutationPolicy)
 
 /** Creates an empty state. */

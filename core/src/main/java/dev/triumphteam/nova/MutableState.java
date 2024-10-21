@@ -53,7 +53,7 @@ public interface MutableState<T> extends State {
      * @return A new {@link MutableState}.
      */
     static <T> @NotNull MutableState<@NotNull T> of(final @NotNull T value) {
-        return of(value, StateMutationPolicy.StructuralEquality.get());
+        return of(value, new StateMutationPolicy.StructuralEquality<>());
     }
 
     /**
@@ -64,7 +64,7 @@ public interface MutableState<T> extends State {
      * @param <T>    The type of the value.
      * @return A new {@link MutableState}.
      */
-    static <T> @NotNull MutableState<@NotNull T> of(final @NotNull T value, final @NotNull StateMutationPolicy policy) {
+    static <T> @NotNull MutableState<@NotNull T> of(final @NotNull T value, final @NotNull StateMutationPolicy<T> policy) {
         return new SimpleMutableState<>(value, policy);
     }
 
@@ -87,7 +87,7 @@ public interface MutableState<T> extends State {
      * @return A new {@link MutableState}.
      */
     static <T> @NotNull MutableState<@Nullable T> ofNullable(final @Nullable T value) {
-        return ofNullable(value, StateMutationPolicy.StructuralEquality.get());
+        return ofNullable(value, new StateMutationPolicy.StructuralEquality<>());
     }
 
     /**
@@ -98,7 +98,7 @@ public interface MutableState<T> extends State {
      * @param <T>    The type of the value.
      * @return A new {@link MutableState}.
      */
-    static <T> @NotNull MutableState<@Nullable T> ofNullable(final @Nullable T value, final @NotNull StateMutationPolicy policy) {
+    static <T> @NotNull MutableState<@Nullable T> ofNullable(final @Nullable T value, final @NotNull StateMutationPolicy<T> policy) {
         return new SimpleMutableState<>(value, policy);
     }
 
@@ -136,5 +136,5 @@ public interface MutableState<T> extends State {
      * @return The used mutation policy.
      */
     @NotNull
-    StateMutationPolicy stateMutationPolicy();
+    StateMutationPolicy<T> stateMutationPolicy();
 }

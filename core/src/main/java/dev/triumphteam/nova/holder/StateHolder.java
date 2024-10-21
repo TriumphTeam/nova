@@ -73,7 +73,7 @@ public interface StateHolder {
      */
     <T> @NotNull MutableState<@NotNull T> remember(
         final @NotNull T value,
-        final @NotNull StateMutationPolicy mutationPolicy
+        final @NotNull StateMutationPolicy<T> mutationPolicy
     );
 
     /**
@@ -99,7 +99,7 @@ public interface StateHolder {
      */
     <T> @NotNull MutableState<@Nullable T> rememberNullable(
         final @Nullable T value,
-        final @NotNull StateMutationPolicy mutationPolicy
+        final @NotNull StateMutationPolicy<T> mutationPolicy
     );
 
     <T> @NotNull ListState<T> rememberMutableList();
