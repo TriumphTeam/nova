@@ -12,5 +12,5 @@ dependencies {
     // Bundled plugins
     implementation(libs.bundles.build)
 
-    root("0.0.6")
+    root("0.0.15")
 }

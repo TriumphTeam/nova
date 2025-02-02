@@ -18,7 +18,7 @@ rootProject.name = "$base-project"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
-    id("dev.triumphteam.root.settings") version "0.0.6"
+    id("dev.triumphteam.root.settings") version "0.0.15"
 }
 
 includeProject("core") {

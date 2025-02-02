@@ -1,12 +1,12 @@
 [versions]
 # kotlin
-kotlin = "1.9.24"
+kotlin = "2.1.10"
 
 license = "0.16.1"
 
 # Core
-annotations = "24.1.0"
-guava = "33.2.0-jre"
+annotations = "26.0.2"
+guava = "33.4.0-jre"
 
 [libraries]
 # Core

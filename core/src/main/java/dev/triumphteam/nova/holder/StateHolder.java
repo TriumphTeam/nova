@@ -24,6 +24,7 @@
 package dev.triumphteam.nova.holder;
 
 import dev.triumphteam.nova.ListState;
+import dev.triumphteam.nova.MapState;
 import dev.triumphteam.nova.MutableState;
 import dev.triumphteam.nova.State;
 import dev.triumphteam.nova.builtin.EmptyState;
@@ -32,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StateHolder {
 
@@ -102,9 +104,48 @@ public interface StateHolder {
         final @NotNull StateMutationPolicy<T> mutationPolicy
     );
 
-    <T> @NotNull ListState<T> rememberMutableList();
+    /**
+     * Make the {@link StateHolder} remember a {@link List} of {@link T}.
+     *
+     * @param <T> The type of the value for the list.
+     * @return The newly created {@link ListState} as a {@link List}.
+     */
+    <T> @NotNull List<T> rememberList();
 
-    <T> @NotNull ListState<T> rememberMutableList(final @NotNull List<T> backing);
+    /**
+     * Make the {@link StateHolder} remember a {@link List} of {@link T} from a backing list.
+     *
+     * @param backing The backing list which will be used by the {@link ListState}.
+     * @param <T>     The type of the value for the list.
+     * @return The newly created {@link ListState} as a {@link List}.
+     */
+    <T> @NotNull List<T> rememberList(final @NotNull List<T> backing);
 
-    <T> @NotNull ListState<T> rememberMutableList(final T... values);
+    /**
+     * Make the {@link StateHolder} remember a {@link List} of {@link T} from a backing list.
+     *
+     * @param values The backing values which will be used by the {@link ListState}.
+     * @param <T>    The type of the value for the list.
+     * @return The newly created {@link ListState} as a {@link List}.
+     */
+    <T> @NotNull List<T> rememberList(final T... values);
+
+    /**
+     * Make the {@link StateHolder} remember a {@link MapState} of key {@link K} and value {@link V}.
+     *
+     * @param <K> The type of the key for the map.
+     * @param <V> The type of the value for the map.
+     * @return The newly created {@link MapState} as a {@link Map}.
+     */
+    <K, V> @NotNull Map<K, V> rememberMap();
+
+    /**
+     * Make the {@link StateHolder} remember a {@link MapState} of key {@link K} and value {@link V} from a backing map.
+     *
+     * @param backing The backing map which will be used by the {@link MapState}.
+     * @param <K>     The type of the key for the map.
+     * @param <V>     The type of the value for the map.
+     * @return The newly created {@link MapState} as a {@link Map}.
+     */
+    <K, V> @NotNull Map<K, V> rememberMap(final @NotNull Map<K, V> backing);
 }

@@ -1,18 +1,18 @@
 /**
  * MIT License
- * <p>
+ *
  * Copyright (c) 2024 TriumphTeam
- * <p>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * <p>
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * <p>
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,6 +24,7 @@
 package dev.triumphteam.nova.holder;
 
 import dev.triumphteam.nova.ListState;
+import dev.triumphteam.nova.MapState;
 import dev.triumphteam.nova.MutableState;
 import dev.triumphteam.nova.State;
 import dev.triumphteam.nova.builtin.EmptyState;
@@ -32,9 +33,11 @@ import dev.triumphteam.nova.policy.StateMutationPolicy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractStateHolder implements StateHolder {
 
@@ -52,7 +55,7 @@ public abstract class AbstractStateHolder implements StateHolder {
     }
 
     @Override
-    public @NotNull <T> MutableState<@NotNull T> remember(@NotNull final T value) {
+    public @NotNull <T> MutableState<@NotNull T> remember(final @NotNull T value) {
         return remember(value, new StateMutationPolicy.StructuralEquality<>());
     }
 
@@ -61,9 +64,7 @@ public abstract class AbstractStateHolder implements StateHolder {
         final @NotNull T value,
         final @NotNull StateMutationPolicy<T> mutationPolicy
     ) {
-        final var state = new SimpleMutableState<>(value, mutationPolicy);
-        states.add(state);
-        return state;
+        return remember(new SimpleMutableState<>(value, mutationPolicy));
     }
 
     @Override
@@ -76,27 +77,33 @@ public abstract class AbstractStateHolder implements StateHolder {
         final @Nullable T value,
         final @NotNull StateMutationPolicy<T> mutationPolicy
     ) {
-        final var state = new SimpleMutableState<>(value, mutationPolicy);
-        states.add(state);
-        return state;
+        return remember(new SimpleMutableState<>(value, mutationPolicy));
     }
 
     @Override
-    public @NotNull <T> ListState<T> rememberMutableList() {
-        return rememberMutableList(new LinkedList<>());
+    public @NotNull <T> List<T> rememberList() {
+        return remember(ListState.of());
     }
 
     @Override
     @SafeVarargs
-    public final @NotNull <T> ListState<T> rememberMutableList(final T... values) {
-        return rememberMutableList(ListState.of(values));
+    public final @NotNull <T> List<T> rememberList(final T... values) {
+        return remember(ListState.of(values));
     }
 
     @Override
-    public @NotNull <T> ListState<T> rememberMutableList(final @NotNull List<T> backing) {
-        final var state = ListState.of(backing);
-        states.add(state);
-        return state;
+    public @NotNull <T> List<T> rememberList(final @NotNull List<T> backing) {
+        return remember(ListState.of(backing));
+    }
+
+    @Override
+    public @NotNull <K, V> Map<K, V> rememberMap() {
+        return remember(MapState.of());
+    }
+
+    @Override
+    public @NotNull <K, V> Map<K, V> rememberMap(final @NotNull Map<K, V> backing) {
+        return remember(MapState.of(backing));
     }
 
     protected @NotNull List<State> getStates() {

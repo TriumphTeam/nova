@@ -21,22 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.triumphteam.nova.builtin;
+package dev.triumphteam.nova;
 
-import dev.triumphteam.nova.AbstractMutableState;
-import dev.triumphteam.nova.MutableState;
-import dev.triumphteam.nova.policy.StateMutationPolicy;
+import dev.triumphteam.nova.builtin.MapBackedMapState;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * The simplest implementation of {@link MutableState}.
- *
- * @param <T> The type of the value.
- * @see AbstractMutableState For the implementation.
- */
-public final class SimpleMutableState<T> extends AbstractMutableState<T> {
+import java.util.HashMap;
+import java.util.Map;
 
-    public SimpleMutableState(final T value, final @NotNull StateMutationPolicy<T> mutationPolicy) {
-        super(value, mutationPolicy);
+/**
+ * A {@link Map} representation of a state.
+ * An update is triggered when the map entries change.
+ *
+ * @param <K> The type of the key of the map.
+ * @param <V> The type of the value of the map.
+ */
+public interface MapState<K, V> extends State, Map<K, V> {
+
+    /**
+     * Creates a new {@link MapState} with a backing {@link HashMap}.
+     *
+     * @param <K> The type of the key of the map.
+     * @param <V> The type of the value of the map.
+     * @return A new {@link MapState}.
+     */
+    static <K, V> @NotNull MapState<K, V> of() {
+        return of(new HashMap<>());
+    }
+
+    /**
+     * Creates a new {@link MapState} with the given map as its backing.
+     *
+     * @param backing The backing {@link Map} for the state to use.
+     * @param <K>     The type of the key of the map.
+     * @param <V>     The type of the value of the map.
+     * @return A new {@link MapState}.
+     */
+    static <K, V> @NotNull MapState<K, V> of(final @NotNull Map<K, V> backing) {
+        return new MapBackedMapState<>(backing);
     }
 }
