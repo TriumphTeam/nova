@@ -32,6 +32,10 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * A {@link MapState} implementation backed by a {@link Map}.
+ * An update is triggered when elements change.
+ */
 public final class MapBackedMapState<K, V> extends AbstractState implements MapState<K, V> {
 
     private final Map<K, V> backing;

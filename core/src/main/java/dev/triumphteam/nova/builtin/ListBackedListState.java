@@ -25,13 +25,19 @@ package dev.triumphteam.nova.builtin;
 
 import dev.triumphteam.nova.AbstractState;
 import dev.triumphteam.nova.ListState;
+import dev.triumphteam.nova.MapState;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
+/**
+ * A {@link ListState} implementation backed by a provided {@link List} implementation.
+ * An update is triggered when the list elements change.
+ */
 public final class ListBackedListState<T> extends AbstractState implements ListState<T> {
 
     private final List<T> backing;

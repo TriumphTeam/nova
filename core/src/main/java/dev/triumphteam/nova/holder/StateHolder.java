@@ -35,6 +35,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents a holder for managing and remembering states.
+ * It provides utility methods to create and track different types of states, including empty states,
+ * mutable states, lists, and maps.
+ * A remembered state can trigger updates or re-renders in the components that use them.
+ */
 public interface StateHolder {
 
     /**

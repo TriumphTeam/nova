@@ -35,7 +35,6 @@ import org.jetbrains.annotations.NotNull;
  * @see AbstractMutableState For the implementation.
  */
 public final class SimpleMutableState<T> extends AbstractMutableState<T> {
-
     public SimpleMutableState(final T value, final @NotNull StateMutationPolicy<T> mutationPolicy) {
         super(value, mutationPolicy);
     }

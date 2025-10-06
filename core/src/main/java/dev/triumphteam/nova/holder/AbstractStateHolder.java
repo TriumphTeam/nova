@@ -39,26 +39,42 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * An abstract implementation of the {@link StateHolder} interface,
+ * providing a base for managing and remembering various states.
+ */
 public abstract class AbstractStateHolder implements StateHolder {
 
     private final List<State> states = new ArrayList<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull State remember() {
         return remember(new EmptyState());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <S extends State> @NotNull S remember(final @NotNull S state) {
         states.add(state);
         return state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <T> MutableState<@NotNull T> remember(final @NotNull T value) {
         return remember(value, new StateMutationPolicy.StructuralEquality<>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <T> MutableState<@NotNull T> remember(
         final @NotNull T value,
@@ -67,11 +83,17 @@ public abstract class AbstractStateHolder implements StateHolder {
         return remember(new SimpleMutableState<>(value, mutationPolicy));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <T> MutableState<@Nullable T> rememberNullable(final @Nullable T value) {
         return rememberNullable(value, new StateMutationPolicy.StructuralEquality<>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <T> MutableState<@Nullable T> rememberNullable(
         final @Nullable T value,
@@ -80,27 +102,42 @@ public abstract class AbstractStateHolder implements StateHolder {
         return remember(new SimpleMutableState<>(value, mutationPolicy));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <T> List<T> rememberList() {
         return remember(ListState.of());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @SafeVarargs
     public final @NotNull <T> List<T> rememberList(final T... values) {
         return remember(ListState.of(values));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <T> List<T> rememberList(final @NotNull List<T> backing) {
         return remember(ListState.of(backing));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <K, V> Map<K, V> rememberMap() {
         return remember(MapState.of());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull <K, V> Map<K, V> rememberMap(final @NotNull Map<K, V> backing) {
         return remember(MapState.of(backing));

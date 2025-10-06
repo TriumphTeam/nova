@@ -25,4 +25,16 @@ package dev.triumphteam.nova.builtin;
 
 import dev.triumphteam.nova.AbstractState;
 
+/**
+ * Represents an immutable empty state.
+ * This class extends {@link AbstractState}, which provides core functionality for state management,
+ * such as triggering listeners.
+ * <p>
+ * This class is designed to represent a state that does not hold any specific value or data,
+ * serving as a placeholder or a default state.
+ * <p>
+ * As this is a final class, it cannot be subclassed.
+ *
+ * @see AbstractState For base state implementation.
+ */
 public final class EmptyState extends AbstractState {}

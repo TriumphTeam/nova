@@ -25,6 +25,16 @@ package dev.triumphteam.nova;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class provides basic functionality for managing state, such as registering
+ * listeners and triggering updates to those listeners.
+ * <p>
+ * This uses a {@link StateListenerContainer} to manage state listeners.
+ * Listeners can be added and triggered to respond to state changes.
+ *
+ * @see State
+ * @see StateListenerContainer
+ */
 public abstract class AbstractState implements State {
 
     private final StateListenerContainer listenerContainer = new StateListenerContainer();

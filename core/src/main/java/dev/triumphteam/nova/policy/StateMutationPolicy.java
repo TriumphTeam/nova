@@ -33,6 +33,40 @@ import org.jetbrains.annotations.Nullable;
 public interface StateMutationPolicy<T> {
 
     /**
+     * Creates a {@link StateMutationPolicy} that checks for reference equality.
+     *
+     * @param <T> The type of the value the state will handle.
+     * @return A new {@link StateMutationPolicy} instance using reference equality.
+     */
+    static <T> StateMutationPolicy<T> reference() {
+        return new ReferenceEquality<>();
+    }
+
+    /**
+     * Creates a {@link StateMutationPolicy} that checks for structural equality.
+     * Structural equality means that two objects are considered equal if their
+     * content is logically equivalent, typically determined via the {@link Object#equals(Object)} method.
+     *
+     * @param <T> The type of the value the state will handle.
+     * @return A new {@link StateMutationPolicy} instance using structural equality.
+     */
+    static <T> StateMutationPolicy<T> structural() {
+        return new StructuralEquality<>();
+    }
+
+    /**
+     * Creates a {@link StateMutationPolicy} where values are never considered equal.
+     * This policy ensures that all value assignments will trigger a mutation,
+     * regardless of their content or reference.
+     *
+     * @param <T> The type of the value the state will handle.
+     * @return A new {@link StateMutationPolicy} instance where no two values are ever treated as equivalent.
+     */
+    static <T> StateMutationPolicy<T> neverEqual() {
+        return new NeverEqual<>();
+    }
+
+    /**
      * Checks if the value should be mutated by comparing the current and the new value.
      *
      * @param currentValue The first value.

@@ -27,6 +27,7 @@ java {
 
 kotlin {
     explicitApi()
+    jvmToolchain(16)
 }
 
 license {

@@ -30,14 +30,14 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * A map backed container for state listeners.
+ * A map-backed container for state listeners.
  * This container uses a map with weak keys, so instances of the {@link Object} can prevent
  * values from being garbage collected correctly.
  */
 public final class StateListenerContainer {
 
     /**
-     * Listeners cache.
+     * Listener cache.
      * The keys of the map are weak.
      * The value of the map is a {@link ConcurrentLinkedQueue}.
      */
