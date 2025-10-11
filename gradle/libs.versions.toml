@@ -2,11 +2,15 @@
 # kotlin
 kotlin = "2.1.10"
 
+# Build
 license = "0.16.1"
+publish = "0.34.0"
+dokka = "2.0.0"
 
 # Core
 annotations = "26.0.2"
 guava = "33.4.0-jre"
+
 
 [libraries]
 # Core
@@ -16,9 +20,13 @@ guava = { module = "com.google.guava:guava", version.ref = "guava" }
 # build
 build-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 build-license = { module = "gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin", version.ref = "license" }
+build-publish = { module = "com.vanniktech.maven.publish:com.vanniktech.maven.publish.gradle.plugin", version.ref = "publish" }
+build-dokka = { module = "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin", version.ref = "dokka" }
 
 [bundles]
 build = [
     "build-kotlin",
     "build-license",
+    "build-publish",
+    "build-dokka",
 ]

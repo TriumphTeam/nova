@@ -21,8 +21,6 @@ dependencies {
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(16))
-    withSourcesJar()
-    withJavadocJar()
 }
 
 kotlin {
